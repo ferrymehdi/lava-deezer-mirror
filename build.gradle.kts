@@ -2,6 +2,7 @@ plugins {
     java
     alias(libs.plugins.lavalink)
     kotlin("jvm")
+    id("maven-publish")
 }
 
 group = "org.ferrymehdi"
@@ -40,4 +41,19 @@ repositories {
 
     maven {url = uri("https://maven.topi.wtf/releases")}
     maven (url = "https://maven.lavalink.dev/releases")
+}
+
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            groupId = "org.ferrymehdi"
+            artifactId = "lava-deezer-mirror"
+            version = "1.0.0"
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
