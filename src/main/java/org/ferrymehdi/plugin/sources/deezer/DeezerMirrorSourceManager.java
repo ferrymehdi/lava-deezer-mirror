@@ -290,19 +290,7 @@ implements HttpConfigurable, AudioSearchManager, AudioLyricsManager {
 
 	private AudioTrack parseTrack(JsonBrowser json, boolean preview) {
 		var id = json.get("id").text();
-
 		var isrc = json.get("isrc").text();
-		if(isrc == null){
-			try {
-				var track = getTrack(id, preview);
-				if(track instanceof DeezerMirrorAudioTrack){
-					isrc = ((DeezerMirrorAudioTrack) track).getInfo().isrc;
-				}
-			} catch (Exception e) {
-				log.error("Failed to get ISRC for track id {}", id, e);
-			}
-		}
-
 		return new DeezerMirrorAudioTrack(
 				new AudioTrackInfo(
 						json.get("title").text(),
